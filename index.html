@@ -13,20 +13,20 @@
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#05060c;overflow:hidden}
+html,body{height:100%;background:var(--bg);overflow:hidden}
 body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased}
 
 /* ---------- stage ---------- */
-#stage{position:fixed;inset:0;display:grid;place-items:center}
-#deck{position:relative;width:1600px;height:900px;transform:scale(var(--s,1));transform-origin:center;flex:none;
+#stage{position:fixed;inset:0;overflow:hidden;background:var(--bg)}
+#deck{position:absolute;left:50%;top:50%;width:1600px;height:var(--h,900px);transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center;
   background:radial-gradient(1200px 700px at 85% -10%,rgba(139,108,255,.16),transparent 60%),
              radial-gradient(900px 600px at -10% 110%,rgba(34,211,238,.08),transparent 60%),var(--bg);
-  border-radius:6px;overflow:hidden;box-shadow:0 30px 120px rgba(0,0,0,.6)}
+  overflow:hidden}
 #deck::before{content:"";position:absolute;inset:0;pointer-events:none;
   background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
   background-size:40px 40px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
 
-.slide{position:absolute;inset:0;padding:70px 90px 80px;opacity:0;visibility:hidden;
+.slide{position:absolute;inset:0;padding:calc(70px + (var(--h,900px) - 900px) / 2) 90px calc(80px + (var(--h,900px) - 900px) / 2);opacity:0;visibility:hidden;
   transform:translateX(40px) scale(.985);transition:opacity .55s var(--ease),transform .65s var(--ease),visibility 0s .6s}
 .slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .55s var(--ease),transform .65s var(--ease),visibility 0s}
 .slide.past{transform:translateX(-40px) scale(.985)}
@@ -43,7 +43,8 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   color:var(--ink2);font-size:17px;line-height:1.6;padding:16px 28px;transform:translateY(100%);transition:transform .3s var(--ease);z-index:50}
 #notes.open{transform:none}
 #notes h6{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--net);margin-bottom:6px}
-#help{position:fixed;right:16px;top:12px;color:#555b85;font:12px var(--mono);z-index:40;opacity:.7}
+#help{position:fixed;right:16px;top:12px;color:#8a90b8;font:12px var(--mono);z-index:40;opacity:.8;transition:opacity 1s;pointer-events:none}
+#help.hide{opacity:0}
 #overview{position:fixed;inset:0;background:rgba(5,6,12,.96);z-index:60;display:none;overflow:auto;padding:30px;
   grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 #overview.open{display:grid}
@@ -1230,7 +1231,13 @@ body.presenter{overflow:auto;background:#0a0c16}
   addEventListener('touchend', e => { if (tx == null) return; const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) (d < 0 ? next() : prev()); tx = null; });
   addEventListener('hashchange', () => { const oi = i, ok = k; parseHash(); if (oi !== i || ok !== k) render(true); });
 
-  function fit() { const s = Math.min(innerWidth / 1600, innerHeight / 900); deck.style.setProperty('--s', s); }
+  function fit() {
+    // 16:9 on wide screens; grow canvas height up to 16:10 so MacBook-style screens have no bars
+    const H = Math.max(900, Math.min(1000, Math.round(1600 * innerHeight / innerWidth)));
+    deck.style.setProperty('--h', H + 'px');
+    deck.style.setProperty('--s', Math.min(innerWidth / 1600, innerHeight / H));
+  }
+  setTimeout(() => document.getElementById('help')?.classList.add('hide'), 6000);
   addEventListener('resize', fit); fit();
   render(true);
 })();
