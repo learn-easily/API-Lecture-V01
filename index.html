@@ -395,24 +395,80 @@ svg .b{font-weight:800}
   <aside class="notes">მიმტანი ორ მხარეს აკავშირებს და ორივეს „საიდუმლოებს“ იცავს. Frontend-ს არ აინტერესებს რა ბაზაა ან რა ენაზეა Backend დაწერილი — მხოლოდ შეკვეთა და პასუხი.</aside>
 </section>
 
-<!-- 10. MENU = CONTRACT -->
+<!-- 10a. WAITER ROUTES ORDERS -->
 <section class="slide" data-section="2 · API">
-  <div class="kicker">მენიუ = API-ის კონტრაქტი</div>
-  <h2>შეკვეთა მხოლოდ <span class="c-asp">მენიუდან</span></h2>
-  <div class="grid2" style="grid-template-columns:1fr 1fr;align-items:center">
-    <div class="card" style="background:#f6efe1;border-color:#d8c8a8;padding:34px 40px">
-      <div style="text-align:center;font-size:30px;font-weight:800;color:#3b2a14;margin-bottom:18px">📜 მენიუ</div>
-      <div class="step" style="display:flex;justify-content:space-between;font-size:24px;color:#3b2a14;padding:10px 0;border-bottom:1px dashed #c8b48c"><span>ხაჭაპური</span><code style="font:700 18px var(--mono);color:#7a4b00">GET /khachapuri</code></div>
-      <div class="step" style="display:flex;justify-content:space-between;font-size:24px;color:#3b2a14;padding:10px 0;border-bottom:1px dashed #c8b48c"><span>ხინკალი</span><code style="font:700 18px var(--mono);color:#7a4b00">GET /khinkali</code></div>
-      <div class="step" style="display:flex;justify-content:space-between;font-size:24px;color:#3b2a14;padding:10px 0;border-bottom:1px dashed #c8b48c"><span>შეკვეთის გაკეთება</span><code style="font:700 18px var(--mono);color:#7a4b00">POST /orders</code></div>
-    </div>
-    <div class="col">
-      <div class="callout step" style="--a:var(--mvc);font-size:24px">✓ „ერთი ხაჭაპური“ — მენიუშია, მიიღებ.</div>
-      <div class="callout step" style="--a:var(--red);font-size:24px">✗ „სუში“ — მენიუში არ არის → <b>404 Not Found</b> 🙂</div>
-      <div class="callout step" style="--a:var(--api);font-size:24px">API ზუსტად ამბობს: <b>რა შეგიძლია მოითხოვო</b> და <b>რას მიიღებ პასუხად</b>.</div>
-    </div>
-  </div>
-  <aside class="notes">მენიუ არის შეთანხმება სტუმარსა და რესტორანს შორის. API-ის „მენიუს“ endpoint-ები ჰქვია — ამ სიტყვას დღეს ბევრჯერ გავიგონებთ.</aside>
+  <div class="kicker">მიმტანმა იცის, ვის მიუტანოს</div>
+  <h2>ყოველ შეკვეთას — <span class="c-asp">თავისი მზარეული</span></h2>
+  <svg viewBox="0 0 1420 560" width="1420" height="560">
+    <g class="in"><rect x="20" y="170" width="250" height="220" rx="20" fill="#0e2a33" stroke="#22d3ee" stroke-width="3"/><text x="145" y="265" text-anchor="middle" font-size="64">🤵</text><text x="145" y="330" text-anchor="middle" class="tw b" font-size="22">მიმტანი</text><text x="145" y="360" text-anchor="middle" class="ta b" font-size="17">API</text></g>
+    <g class="in" style="--d:.15s">
+      <rect x="1000" y="20" width="400" height="140" rx="18" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="1030" y="105" font-size="48">👩‍🍳</text><text x="1110" y="85" class="tw b" font-size="22">თონე</text><text x="1110" y="118" class="tm" font-size="17">აცხობს ხაჭაპურს</text>
+      <rect x="1000" y="210" width="400" height="140" rx="18" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="1030" y="295" font-size="48">👨‍🍳</text><text x="1110" y="275" class="tw b" font-size="22">ცივი კერძები</text><text x="1110" y="308" class="tm" font-size="17">ამზადებს სალათს</text>
+      <rect x="1000" y="400" width="400" height="140" rx="18" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="1030" y="485" font-size="48">💵</text><text x="1110" y="465" class="tw b" font-size="22">სალარო</text><text x="1110" y="498" class="tm" font-size="17">ითვლის ანგარიშს</text>
+    </g>
+    <g class="step fade">
+      <path d="M270 230 C600 230 700 90 1000 90" stroke="#f5a524" stroke-width="3" fill="none" class="flow"/>
+      <g><rect x="-85" y="-20" width="170" height="40" rx="10" fill="#f5a524"/><text x="0" y="7" text-anchor="middle" class="td" font-size="18">„ხაჭაპური“</text>
+        <animateMotion dur="1.6s" begin="indefinite" fill="freeze" path="M360 230 C600 230 700 90 900 90"/></g>
+    </g>
+    <g class="step fade">
+      <path d="M270 280 H1000" stroke="#22c55e" stroke-width="3" fill="none" class="flow"/>
+      <g><rect x="-85" y="-20" width="170" height="40" rx="10" fill="#22c55e"/><text x="0" y="7" text-anchor="middle" class="td" font-size="18">„სალათი“</text>
+        <animateMotion dur="1.6s" begin="indefinite" fill="freeze" path="M360 280 H900"/></g>
+    </g>
+    <g class="step fade">
+      <path d="M270 330 C600 330 700 470 1000 470" stroke="#ec4899" stroke-width="3" fill="none" class="flow"/>
+      <g><rect x="-85" y="-20" width="170" height="40" rx="10" fill="#ec4899"/><text x="0" y="7" text-anchor="middle" class="td" font-size="18">„ანგარიში“</text>
+        <animateMotion dur="1.6s" begin="indefinite" fill="freeze" path="M360 330 C600 330 700 470 900 470"/></g>
+    </g>
+  </svg>
+  <div class="callout step" style="--a:var(--api);font-size:24px">მიმტანი თვითონ არ ამზადებს — ის <b>სწორ ადგილას</b> მიაქვს შეკვეთა. API-შიც ასეა: ყოველ მოთხოვნას <b>თავისი ადგილი</b> აქვს.</div>
+  <aside class="notes">მიმტანი იღებს სხვადასხვა შეკვეთას და თითოეული სხვადასხვა ადგილას მიაქვს: ხაჭაპური — თონესთან, სალათი — ცივი კერძების მზარეულთან, ანგარიში — სალაროში. შემდეგ სლაიდზე იგივეს ვნახავთ რეალურ API-ში.</aside>
+</section>
+
+<!-- 10b. API = MANY ENDPOINTS -->
+<section class="slide" data-section="2 · API">
+  <div class="kicker">Endpoint</div>
+  <h2>API შედგება <span class="c-api">Endpoint</span>-ებისგან</h2>
+  <svg viewBox="0 0 1420 520" width="1420" height="520">
+    <text x="130" y="30" text-anchor="middle" class="tm b" font-size="18">Frontend</text>
+    <text x="560" y="30" text-anchor="middle" class="ta b" font-size="18">API · Endpoint-ები</text>
+    <text x="1150" y="30" text-anchor="middle" class="tn b" font-size="18">Backend · ფუნქციები</text>
+    <g class="in"><rect x="20" y="170" width="220" height="180" rx="18" class="box"/><text x="130" y="260" text-anchor="middle" font-size="50">💻</text><text x="130" y="310" text-anchor="middle" class="tw b" font-size="19">საიტი</text></g>
+    <g class="in" style="--d:.1s">
+      <rect x="370" y="50" width="380" height="450" rx="20" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="8 6"/>
+      <g class="mono" font-size="19">
+        <rect x="395" y="75" width="330" height="80" rx="12" fill="#0e2a33" stroke="#22d3ee" stroke-width="2"/><text x="415" y="108" class="tg b">GET</text><text x="480" y="108" class="tw">/api/products</text><text x="415" y="138" class="tm" font-size="15">პროდუქტების სია</text>
+        <rect x="395" y="175" width="330" height="80" rx="12" fill="#0e2a33" stroke="#22d3ee" stroke-width="2"/><text x="415" y="208" class="tg b">GET</text><text x="480" y="208" class="tw">/api/products/5</text><text x="415" y="238" class="tm" font-size="15">ერთი პროდუქტი</text>
+        <rect x="395" y="275" width="330" height="80" rx="12" fill="#0e2a33" stroke="#22d3ee" stroke-width="2"/><text x="415" y="308" class="to b">POST</text><text x="490" y="308" class="tw">/api/orders</text><text x="415" y="338" class="tm" font-size="15">შეკვეთის გაკეთება</text>
+        <rect x="395" y="375" width="330" height="80" rx="12" fill="#0e2a33" stroke="#22d3ee" stroke-width="2"/><text x="415" y="408" class="tg b">GET</text><text x="480" y="408" class="tw">/api/cart</text><text x="415" y="438" class="tm" font-size="15">ჩემი კალათა</text>
+      </g>
+    </g>
+    <g class="in mono" style="--d:.2s" font-size="20">
+      <rect x="960" y="75" width="380" height="80" rx="12" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="985" y="122" class="tp">GetAllProducts()</text>
+      <rect x="960" y="175" width="380" height="80" rx="12" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="985" y="222" class="tp">GetProduct(id)</text>
+      <rect x="960" y="275" width="380" height="80" rx="12" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="985" y="322" class="tp">CreateOrder(order)</text>
+      <rect x="960" y="375" width="380" height="80" rx="12" fill="#1d1640" stroke="#8b6cff" stroke-width="2"/><text x="985" y="422" class="tp">GetCart(userId)</text>
+    </g>
+    <g class="step fade">
+      <g stroke="#353b6b" stroke-width="2.5" fill="none"><path d="M725 115 H960"/><path d="M725 215 H960"/><path d="M725 315 H960"/><path d="M725 415 H960"/></g>
+      <text x="842" y="103" text-anchor="middle" class="tm" font-size="15">იძახებს →</text>
+    </g>
+    <g class="step fade">
+      <path d="M240 230 C310 230 320 115 395 115" stroke="#22d3ee" stroke-width="3" fill="none"/>
+      <rect x="395" y="75" width="330" height="80" rx="12" fill="none" stroke="#22d3ee" stroke-width="4" class="pulse"/>
+      <rect x="960" y="75" width="380" height="80" rx="12" fill="rgba(139,108,255,.25)" stroke="#a78bfa" stroke-width="4"/>
+      <g><circle r="12" fill="#22d3ee"/><animateMotion dur="2.4s" begin="indefinite" fill="freeze" path="M240 230 C310 230 320 115 395 115 H960"/></g>
+    </g>
+    <g class="step fade">
+      <path d="M240 290 C310 290 320 315 395 315" stroke="#f5a524" stroke-width="3" fill="none"/>
+      <rect x="395" y="275" width="330" height="80" rx="12" fill="none" stroke="#f5a524" stroke-width="4" class="pulse"/>
+      <rect x="960" y="275" width="380" height="80" rx="12" fill="rgba(245,165,36,.2)" stroke="#f5a524" stroke-width="4"/>
+      <g><circle r="12" fill="#f5a524"/><animateMotion dur="2.4s" begin="indefinite" fill="freeze" path="M240 290 C310 290 320 315 395 315 H960"/></g>
+    </g>
+  </svg>
+  <div class="callout step" style="--a:var(--api);font-size:24px"><b>Endpoint</b> = <b>მეთოდი + მისამართი</b> ერთი კონკრეტული მიზნით. მოთხოვნა მოდის Endpoint-ზე → Endpoint Backend-ში შესაბამის <b>ფუნქციას</b> ააქტიურებს.</div>
+  <aside class="notes">API ერთი დიდი „კარი“ არ არის — ეს ბევრი პატარა კარის ნაკრებია. თითოეულ კარს (Endpoint-ს) თავისი მისამართი და თავისი საქმე აქვს. Frontend-მა იცის რომელ კარზე დააკაკუნოს, კარი კი Backend-ში სწორ ფუნქციას „ურეკავს“. პრაქტიკაში app.MapGet(...) = ზუსტად ერთი Endpoint.</aside>
 </section>
 
 <!-- 11. API DEFINITION -->
@@ -930,175 +986,4 @@ svg .b{font-weight:800}
     </div>
     <div class="col">
       <pre class="code big step"><span class="ttl">Response</span><code><span class="ln"><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span></span><span class="ln"><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span></span><span class="ln">     <span class="l"> </span></span></code></pre>
-      <pre class="code big step" data-with><code><span class="ln"><span class="p">[</span></span><span class="ln"><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ლეპტოპი"</span><span class="p">,</span><span class="w"> </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2400</span><span class="w"> </span><span class="p">},</span></span><span class="ln"><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"მაუსი"</span><span class="p">,</span><span class="w"> </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="p">]</span></span><span class="ln"><span class="w">      </span></span></code></pre>
-    </div>
-  </div>
-  <aside class="notes">დააკვირდით: C#-ში Name დავწერეთ, JSON-ში name მოვიდა — ASP.NET Core ავტომატურად აქცევს JSON-ის სტილზე (camelCase).</aside>
-</section>
-
-<!-- 40. METHODS IN CODE -->
-<section class="slide" data-section="6 · პრაქტიკა">
-  <div class="kicker">შემდეგი ნაბიჯები</div>
-  <h2>5 მეთოდი = 5 <span class="c-api">Map</span></h2>
-  <div class="col" style="gap:14px;margin-top:20px">
-    <div class="method-card step left" style="--a:var(--mvc)"><span class="m">MapGet</span><span class="t mono">("/api/products", …)</span><span class="t" style="margin-left:auto">წაკითხვა</span></div>
-    <div class="method-card step left" style="--a:var(--asp)"><span class="m">MapPost</span><span class="t mono">("/api/products", …)</span><span class="t" style="margin-left:auto">შექმნა</span></div>
-    <div class="method-card step left" style="--a:var(--wf)"><span class="m">MapPut</span><span class="t mono">("/api/products/{id}", …)</span><span class="t" style="margin-left:auto">მთლიანად შეცვლა</span></div>
-    <div class="method-card step left" style="--a:var(--core)"><span class="m">MapPatch</span><span class="t mono">("/api/products/{id}", …)</span><span class="t" style="margin-left:auto">ნაწილობრივ შეცვლა</span></div>
-    <div class="method-card step left" style="--a:var(--red)"><span class="m">MapDelete</span><span class="t mono">("/api/products/{id}", …)</span><span class="t" style="margin-left:auto">წაშლა</span></div>
-  </div>
-  <p class="lead step mt" style="text-align:center">დანარჩენ 4-ს შემდეგ ლექციებზე დავწერთ ✍️</p>
-  <aside class="notes">ანონსი: ყოველ REST მეთოდს თავისი Map მეთოდი აქვს. {id} — მისამართის ნაწილი, რომელიც იცვლება.</aside>
-</section>
-
-<!-- 41. RECAP -->
-<section class="slide" data-section="შეჯამება">
-  <div class="kicker">შეჯამება</div>
-  <h2>დღეს ვისწავლეთ</h2>
-  <div class="col" style="gap:34px;margin-top:40px">
-    <div class="row step left" style="gap:20px;align-items:center"><span class="big-emoji" style="font-size:44px">⚙️</span><span style="font-size:30px"><b>Backend</b> — საერთო ადგილი მონაცემისა და წესებისთვის</span></div>
-    <div class="row step left" style="gap:20px;align-items:center"><span class="big-emoji" style="font-size:44px">🤵</span><span style="font-size:30px"><b>API</b> — „მიმტანი“ Frontend-სა და Backend-ს შორის</span></div>
-    <div class="row step left" style="gap:20px;align-items:center"><span class="big-emoji" style="font-size:44px">🌐</span><span style="font-size:30px"><b>Request → Response</b>, JSON და სტატუს კოდები</span></div>
-    <div class="row step left" style="gap:20px;align-items:center"><span class="big-emoji" style="font-size:44px">📮</span><span style="font-size:30px"><b>REST</b> — რესურსი + 5 მეთოდი: GET, POST, PUT, PATCH, DELETE</span></div>
-    <div class="row step left" style="gap:20px;align-items:center"><span class="big-emoji" style="font-size:44px">🔌</span><span style="font-size:30px"><b>ASP.NET Core Web API</b> — და ჩვენი პირველი <code class="i">MapGet</code></span></div>
-  </div>
-</section>
-
-<!-- 42. QUIZ / HOMEWORK -->
-<section class="slide" data-section="შეჯამება">
-  <div class="kicker">შეამოწმე თავი</div>
-  <h2>5 კითხვა 🙋</h2>
-  <div class="qa"><span class="n">01</span><span class="q">რატომ არ შეიძლება ონლაინ მაღაზია მხოლოდ ბრაუზერში ცხოვრობდეს?</span><span class="a step">მონაცემი და წესები ყველასთვის საერთო უნდა იყოს და დაცული — ეს Backend-ის საქმეა.</span></div>
-  <div class="qa"><span class="n">02</span><span class="q">ვინ არის „მიმტანი“ და რა არის „მენიუ“?</span><span class="a step">მიმტანი = API, მენიუ = endpoint-ების სია.</span></div>
-  <div class="qa"><span class="n">03</span><span class="q">რომელი მეთოდით შევქმნით ახალ მომხმარებელს?</span><span class="a step"><code class="i">POST /users</code> → 201 Created</span></div>
-  <div class="qa"><span class="n">04</span><span class="q">PUT და PATCH — რა განსხვავებაა?</span><span class="a step">PUT მთლიანად ცვლის, PATCH — მხოლოდ გაგზავნილ ველებს.</span></div>
-  <div class="qa"><span class="n">05</span><span class="q">რას ნიშნავს 404?</span><span class="a step">მოთხოვნილი რესურსი ვერ მოიძებნა (4xx = კლიენტის შეცდომა).</span></div>
-  <div class="callout step mt" style="--a:var(--api)">🏠 <b>დავალება:</b> დაამატე endpoint <code class="i">GET /api/categories</code> საკუთარი სიით და შეამოწმე .http ფაილით.</div>
-</section>
-
-<div id="hud"><span class="sec"></span><span class="dots"></span><span class="num"></span></div><div id="bar"></div>
-</div></div>
-<div id="notes"></div><div id="overview"></div>
-<div id="help">→ შემდეგი · ← წინა · N შენიშვნები · O ყველა სლაიდი · F სრული ეკრანი</div>
-<script>(() => {
-  const deck = document.getElementById('deck');
-  const slides = [...deck.querySelectorAll('.slide')];
-  const hud = { sec: document.querySelector('#hud .sec'), num: document.querySelector('#hud .num'), dots: document.querySelector('#hud .dots') };
-  const bar = document.getElementById('bar');
-  const notes = document.getElementById('notes');
-  const ov = document.getElementById('overview');
-
-  // ----- build step groups per slide -----
-  const groups = slides.map(s => {
-    const els = [...s.querySelectorAll('.step, .trigger, .codestep')].filter(e => !e.closest('.notes'));
-    const g = [];
-    els.forEach(e => { if (e.hasAttribute('data-with') && g.length) g[g.length - 1].push(e); else g.push([e]); });
-    return g;
-  });
-  // sections
-  let curSec = '';
-  const sections = slides.map(s => (curSec = s.dataset.section ?? curSec));
-
-  // typing lengths
-  document.querySelectorAll('.typing').forEach(t => { t.style.setProperty('--n', t.textContent.length); if (!t.style.getPropertyValue('--t')) t.style.setProperty('--t', Math.max(.6, t.textContent.length * .045) + 's'); });
-
-  // svg draw lengths
-  document.querySelectorAll('.draw path,.draw line,.draw polyline,path.draw,line.draw,.autodraw path,path.autodraw').forEach(p => {
-    try { const L = Math.ceil(p.getTotalLength()) + 2; p.style.setProperty('--len', L); } catch (e) {}
-  });
-
-  let i = 0, k = 0;
-  const parseHash = () => { const m = location.hash.match(/#\/?(\d+)(?:\.(\d+))?/); if (m) { i = Math.min(slides.length - 1, Math.max(0, +m[1] - 1)); k = Math.min(groups[i].length, +(m[2] || 0)); } };
-  parseHash();
-
-  function smil(root, filter) {
-    root.querySelectorAll('animate,animateMotion,animateTransform,set').forEach(a => {
-      if (filter(a)) { try { a.beginElement(); } catch (e) {} }
-    });
-  }
-  function ranges(spec) {
-    const out = new Set();
-    String(spec).split(',').forEach(p => { const [a, b] = p.split('-').map(Number); for (let x = a; x <= (b || a); x++) out.add(x); });
-    return out;
-  }
-
-  let prevI = -1, prevK = -1;
-  function render(forward) {
-    slides.forEach((s, x) => { s.classList.toggle('active', x === i); s.classList.toggle('past', x < i); });
-    const s = slides[i];
-    groups[i].forEach((g, x) => g.forEach(e => e.classList.toggle('shown', x < k)));
-    // data-hide triggers: hide target element(s) once the trigger is shown
-    s.querySelectorAll('[data-hide]').forEach(t => {
-      s.querySelectorAll(t.dataset.hide).forEach(el => el.classList.toggle('gone', t.classList.contains('shown')));
-    });
-    // code highlights
-    s.querySelectorAll('pre.code[id]').forEach(pre => {
-      const steps = [...s.querySelectorAll(`.codestep[data-for="${pre.id}"]`)].filter(c => c.classList.contains('shown'));
-      const last = steps[steps.length - 1];
-      const lines = [...pre.querySelectorAll('.ln')];
-      if (!last || last.dataset.lines === 'all') { lines.forEach(l => l.classList.remove('hl', 'dim')); return; }
-      const set = ranges(last.dataset.lines);
-      lines.forEach((l, n) => { const on = set.has(n + 1); l.classList.toggle('hl', on); l.classList.toggle('dim', !on); });
-    });
-    // animations
-    if (i !== prevI) {
-      smil(s, a => a.hasAttribute('data-auto'));
-    }
-    if (i === prevI && k > prevK) {
-      for (let x = prevK; x < k; x++) groups[i][x].forEach(e => smil(e, a => !a.hasAttribute('data-auto')));
-    } else if (i !== prevI && k > 0) {
-      for (let x = 0; x < k; x++) groups[i][x].forEach(e => smil(e, a => !a.hasAttribute('data-auto')));
-    }
-    prevI = i; prevK = k;
-    // hud
-    hud.sec.textContent = sections[i] || '';
-    hud.num.textContent = `${i + 1} / ${slides.length}`;
-    const n = groups[i].length;
-    hud.dots.innerHTML = n ? Array.from({ length: n }, (_, x) => x < k ? '<b>●</b>' : '○').join('') : '';
-    bar.style.width = ((i + (n ? k / n : 1)) / slides.length * 100) + '%';
-    const nt = s.querySelector('.notes');
-    notes.innerHTML = `<h6>შენიშვნები ლექტორისთვის · სლაიდი ${i + 1}</h6>` + (nt ? nt.innerHTML : '<span class="muted">—</span>');
-    history.replaceState(null, '', `#/${i + 1}${k ? '.' + k : ''}`);
-    [...ov.children].forEach((b, x) => b.classList.toggle('cur', x === i));
-  }
-
-  function next() { if (k < groups[i].length) k++; else if (i < slides.length - 1) { i++; k = 0; } render(true); }
-  function prev() { if (k > 0) { k--; prevK = k; } else if (i > 0) { i--; k = groups[i].length; } render(false); }
-  function go(x, all) { i = Math.max(0, Math.min(slides.length - 1, x)); k = all ? groups[i].length : 0; render(true); }
-
-  // overview
-  slides.forEach((s, x) => {
-    const b = document.createElement('button');
-    const t = s.querySelector('h1,h2,h3')?.textContent.trim() || s.dataset.title || 'სლაიდი';
-    b.innerHTML = `<small>${x + 1} · ${sections[x] || ''}</small>${t}`;
-    b.onclick = e => { e.stopPropagation(); ov.classList.remove('open'); go(x); };
-    ov.appendChild(b);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
-    const key = e.key;
-    if (['ArrowRight', 'PageDown', ' ', 'Enter', 'ArrowDown'].includes(key)) { e.preventDefault(); e.shiftKey ? go(i + 1) : next(); }
-    else if (['ArrowLeft', 'PageUp', 'Backspace', 'ArrowUp'].includes(key)) { e.preventDefault(); e.shiftKey ? go(i - 1) : prev(); }
-    else if (key === 'Home') go(0);
-    else if (key === 'End') go(slides.length - 1, true);
-    else if (key === 'n' || key === 'N') notes.classList.toggle('open');
-    else if (key === 'o' || key === 'O' || key === 'Escape') ov.classList.toggle('open', key === 'Escape' ? false : !ov.classList.contains('open'));
-    else if (key === 'f' || key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
-    else if (key === 'a' || key === 'A') { k = groups[i].length; render(true); }
-  });
-  document.getElementById('stage').addEventListener('click', e => {
-    if (e.target.closest('a,button,#notes')) return;
-    (e.clientX < innerWidth * 0.3) ? prev() : next();
-  });
-  let tx = null;
-  addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
-  addEventListener('touchend', e => { if (tx == null) return; const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) (d < 0 ? next() : prev()); tx = null; });
-  addEventListener('hashchange', () => { const oi = i, ok = k; parseHash(); if (oi !== i || ok !== k) render(true); });
-
-  function fit() { const s = Math.min(innerWidth / 1600, innerHeight / 900); deck.style.setProperty('--s', s); }
-  addEventListener('resize', fit); fit();
-  render(true);
-})();
-</script>
-</body></html>
+      <pre class="code big step" data-with><code><span class="ln"><span class="p">[</span></span><span class="ln"><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ლეპტოპი"</span><span class="p">,</span><span class="w"> </span><span class="nt">"price"</span><span class="p">:</span><span cl
